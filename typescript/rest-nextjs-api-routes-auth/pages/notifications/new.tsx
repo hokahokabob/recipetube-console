@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { GetServerSideProps } from "next";
 import Layout from "../../components/Layout";
 import Router from "next/router";
-import { PostProps } from "../../components/Post";
-import prisma from '../../lib/prisma'
 import { useSession } from "next-auth/react";
 import { NotificationProps } from "../../components/Notification";
 
@@ -22,13 +20,6 @@ async function publishNotification(notification: NotificationProps): Promise<voi
   });
   await Router.push("/")
 }
-
-// async function deletePost(id: number): Promise<void> {
-//   await fetch(`/api/post/${id}`, {
-//     method: "DELETE",
-//   });
-//   await Router.push("/")
-// }
 
 const NewNotification: React.FC<NotificationProps> = (props) => {
   const { data: session, status } = useSession();
@@ -66,8 +57,6 @@ const NewNotification: React.FC<NotificationProps> = (props) => {
     <Layout>
       <div>
         <h2>新規入稿</h2>
-        <button>Publish</button>
-        <button>Delete</button>
         <form onSubmit={handleSubmit}>
           <label htmlFor="title">Title:</label><br/>
           <input type="text" id="title" name="title" maxLength={50} onChange={handleChange}/><br/>
