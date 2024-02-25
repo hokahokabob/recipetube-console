@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "mysql"
+  url      = "mysql://root@localhost:33306/admin?charset=utf8mb4"
 }
 
 model Post {
@@ -23,11 +23,11 @@ model Account {
   provider           String
   providerAccountId  String  @map("provider_account_id")
   refresh_token      String?
-  access_token       String?
+  access_token       String? @db.VarChar(2000)
   expires_at         Int?
   token_type         String?
   scope              String?
-  id_token           String?
+  id_token           String? @db.VarChar(2000)
   session_state      String?
   oauth_token_secret String?
   oauth_token        String?
@@ -70,4 +70,23 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verificationtokens")
+}
+
+//here is our own models
+model notifications {
+  id               Int      @id @default(autoincrement())
+  title            String
+  content          String
+  notification_div NotificationDiv
+  important        Boolean
+  start_at         DateTime @db.DateTime
+  end_at           DateTime @db.DateTime
+  created          DateTime @default(now())
+  updated          DateTime?
+}
+
+enum NotificationDiv {
+  GENERAL
+  MAINTENANCE
+  TROUBLE_REPORT
 }

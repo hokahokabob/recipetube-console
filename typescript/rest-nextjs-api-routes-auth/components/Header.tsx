@@ -150,7 +150,7 @@ const Header: React.FC = () => {
         <p>
           {session.user.name} ({session.user.email})
         </p>
-        <Link href="/create" legacyBehavior>
+        <Link href="/notifications/new" legacyBehavior>
           <button>
             <a>New post</a>
           </button>
