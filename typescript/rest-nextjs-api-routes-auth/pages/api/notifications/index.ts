@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '../../../lib/prisma'
 import { getServerSession } from 'next-auth/next';
 import { options } from '../auth/[...nextauth]';
-import { NotificationProps } from '../../notifications/new';
+import { NotificationProps } from '../../../components/Notification';
 
 // GET /api/notifications
 // POST /api/notifications

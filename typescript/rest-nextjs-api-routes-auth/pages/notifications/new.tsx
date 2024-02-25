@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { GetServerSideProps } from "next";
-import ReactMarkdown from "react-markdown";
 import Layout from "../../components/Layout";
 import Router from "next/router";
 import { PostProps } from "../../components/Post";
 import prisma from '../../lib/prisma'
 import { useSession } from "next-auth/react";
+import { NotificationProps } from "../../components/Notification";
 
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
@@ -30,15 +30,6 @@ async function publishNotification(notification: NotificationProps): Promise<voi
 //   await Router.push("/")
 // }
 
-export type NotificationProps = {
-  title: string,
-  content: string,
-  notification_div: string,
-  important: boolean,
-  start_at: string,
-  end_at: string,
-}
-
 const NewNotification: React.FC<NotificationProps> = (props) => {
   const { data: session, status } = useSession();
 
@@ -54,7 +45,7 @@ const NewNotification: React.FC<NotificationProps> = (props) => {
     return <div>loading ...</div>;
   }
   const userHasValidSession = Boolean(session);
-  
+
   if(!userHasValidSession) {
     return <div>Unauthorized</div>
   }

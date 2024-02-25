@@ -1,7 +1,7 @@
 import React from "react";
 import type { GetServerSideProps } from "next";
 import Layout from "../components/Layout";
-import Post, { PostProps } from "../components/Post";
+import Notification, { NotificationProps } from "../components/Notification";
 import prisma from '../lib/prisma'
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -16,10 +16,10 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 type Props = {
-  feed: PostProps[];
+  feed: NotificationProps[];
 };
 
-const Blog: React.FC<Props> = (props) => {
+const Home: React.FC<Props> = (props) => {
   return (
     <Layout>
       <div className="page">
@@ -27,7 +27,7 @@ const Blog: React.FC<Props> = (props) => {
         <main>
           {props.notifications.map((notification) => (
             <div key={notification.id} className="post">
-              <Post post={notification} />
+              <Notification notification={notification} />
             </div>
           ))}
         </main>
@@ -50,4 +50,4 @@ const Blog: React.FC<Props> = (props) => {
   );
 };
 
-export default Blog;
+export default Home;

@@ -14,7 +14,7 @@ const Header: React.FC = () => {
     <div className="left">
       <Link href="/" legacyBehavior>
         <a className="bold" data-active={isActive("/")}>
-          Feed
+          RecipeTube
         </a>
       </Link>
       <style jsx>{`
@@ -46,7 +46,7 @@ const Header: React.FC = () => {
       <div className="left">
         <Link href="/" legacyBehavior>
           <a className="bold" data-active={isActive("/")}>
-            Feed
+            RecipeTube
           </a>
         </Link>
         <style jsx>{`
@@ -118,11 +118,8 @@ const Header: React.FC = () => {
       <div className="left">
         <Link href="/" legacyBehavior>
           <a className="bold" data-active={isActive("/")}>
-            Feed
+            RecipeTube
           </a>
-        </Link>
-        <Link href="/drafts" legacyBehavior>
-          <a data-active={isActive("/drafts")}>My drafts</a>
         </Link>
         <style jsx>{`
           .bold {
