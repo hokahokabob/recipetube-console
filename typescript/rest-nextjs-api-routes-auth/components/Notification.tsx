@@ -1,6 +1,5 @@
 import React from "react";
 import Router, { useRouter } from "next/router";
-import ReactMarkdown from "react-markdown";
 
 export type NotificationProps = {
   title: string,
@@ -11,7 +10,7 @@ export type NotificationProps = {
   end_at: string,
 }
 
-type NotificationPropsWithId = NotificationProps & {
+export type NotificationPropsWithId = NotificationProps & {
   id: number,
 }
 

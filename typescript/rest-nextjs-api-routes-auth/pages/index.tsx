@@ -1,7 +1,7 @@
 import React from "react";
 import type { GetServerSideProps } from "next";
 import Layout from "../components/Layout";
-import Notification, { NotificationProps } from "../components/Notification";
+import Notification, { NotificationPropsWithId } from "../components/Notification";
 import prisma from '../lib/prisma'
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -16,7 +16,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 type Props = {
-  feed: NotificationProps[];
+  notifications: NotificationPropsWithId[];
 };
 
 const Home: React.FC<Props> = (props) => {
