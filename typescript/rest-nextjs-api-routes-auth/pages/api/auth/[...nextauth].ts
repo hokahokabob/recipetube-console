@@ -9,13 +9,15 @@ import prisma from '../../../lib/prisma';
 const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
 export default authHandler;
 
+const secrets = JSON.parse(process.env.secrets);
+const foo = secrets["foo"];
 export const options: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientSecret: secrets['GOOGLE_CLIENT_SECRET'],
     }),
   ],
   adapter: PrismaAdapter(prisma),
-  secret: process.env.secrets['SECRET'],
+  secret: secrets['SECRET'],
 };
