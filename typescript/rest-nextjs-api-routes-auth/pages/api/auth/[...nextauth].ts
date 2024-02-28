@@ -17,5 +17,5 @@ export const options: NextAuthOptions = {
     }),
   ],
   adapter: PrismaAdapter(prisma),
-  secret: process.env.SECRET,
+  secret: process.env.secrets['SECRET'],
 };
