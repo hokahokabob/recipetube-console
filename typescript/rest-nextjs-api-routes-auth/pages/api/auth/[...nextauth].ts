@@ -10,6 +10,7 @@ const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
 export default authHandler;
 
 const secrets = JSON.parse(process.env.secrets);
+console.log("NMO: secrets:" + secrets);
 const foo = secrets["foo"];
 export const options: NextAuthOptions = {
   providers: [
