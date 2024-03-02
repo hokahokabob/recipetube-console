@@ -2,14 +2,16 @@ import React from "react";
 import type { GetServerSideProps } from "next";
 import Layout from "../components/Layout";
 import Notification, { NotificationPropsWithId } from "../components/Notification";
-import prisma from '../lib/prisma'
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const notifications = await prisma.notifications.findMany({
-    orderBy: {
-      start_at: 'desc',
-    },
-  });
+
+  const notifications = await fetch(process.env.API_URL, {
+    method: "GET",
+    headers: { "X-API-Key": process.env.API_KEY },
+  }).then(
+    (res) => res.json()
+  )
+  console.log(notifications)
   return {
     props: { notifications },
   };
