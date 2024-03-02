@@ -1,9 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import prisma from '../../../lib/prisma'
 import { getServerSession } from 'next-auth/next';
 import { options } from '../auth/[...nextauth]';
-import { NotificationProps } from '../../../components/Notification';
 
+// memo: 色々あってAPI Gatewayを使うことになったため、pages/api以下を挟む必要はないが
+// 学習の証跡の兼ねてここに一部の実装を残している
 // GET /api/notifications
 // POST /api/notifications
 export default async function handle(
@@ -12,24 +12,14 @@ export default async function handle(
 ) {
   const session = await getServerSession(req, res, options);
   if (session) {
-    if (req.method === "GET") {
-      const result = await prisma.notifications.findMany({
-        //all
-      })
-      res.json(result)
-    }
     if(req.method === "POST") {
-      const { title, content, notification_div, important, start_at, end_at } = req.body;
-      const result = await prisma.notifications.create({
-        data: {
-          title: title,
-          content: content,
-          notification_div: notification_div,
-          important: important === 'on',
-          start_at: extractISO8601Date(start_at),
-          end_at: extractISO8601Date(end_at),
-        }
-      })
+      const result = await fetch(process.env.API_URL, {
+        method: "POST",
+        headers: { "X-API-Key": process.env.API_KEY },
+        body: JSON.stringify(req.body),
+      }).then(
+        (res) => res.json()
+      )
       res.json(result);
     }
   }
