@@ -1,8 +1,6 @@
 import { NextApiHandler } from 'next';
 import NextAuth, { NextAuthOptions } from 'next-auth';
-import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import GoogleProvider from 'next-auth/providers/google';
-import prisma from '../../../lib/prisma';
 
 /**
   NextAuthOptions is renamed to NextAuthConfig
@@ -20,6 +18,5 @@ export const options: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
-  // adapter: PrismaAdapter(prisma),
   secret: process.env.SECRET,
 };
