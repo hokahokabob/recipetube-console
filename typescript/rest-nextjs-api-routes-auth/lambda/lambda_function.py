@@ -44,13 +44,11 @@ def lambda_handler(event, context):
             return result
 
     if function_name == 'notification/add':
-        logger.info("NMOTMP")
-        logger.info(event)
         request_body = event['body']
         title = request_body['title']
         content = request_body['content']
         notification_div = request_body['notification_div']
-        important = request_body['important']
+        important = '1' if request_body['important'] else '0'
         start_at = request_body['start_at']
         end_at = request_body['end_at']
 
@@ -80,3 +78,4 @@ def lambda_handler(event, context):
         return {
             "result": "successfully deleted"
         }
+

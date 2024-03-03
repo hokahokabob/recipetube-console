@@ -48,6 +48,14 @@ const NewNotification: React.FC<NotificationProps> = (props) => {
     });
   };
 
+  const handleChangeBoolean = (e) => {
+    setFormState({
+      ...formState,
+      [e.target.name]: e.target.checked,
+    });
+    console.log(e.target.checked)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     publishNotification(formState);
@@ -76,7 +84,7 @@ const NewNotification: React.FC<NotificationProps> = (props) => {
       </div>
       <div className="form-group">
         <label htmlFor="important">Important</label>
-        <input type="checkbox" id="important" name="important" onChange={handleChange}/>
+        <input type="checkbox" id="important" name="important" onChange={handleChangeBoolean}/>
       </div>
       <div className="form-group">
         <label htmlFor="start_at">Start At:</label>

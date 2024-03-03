@@ -31,7 +31,7 @@ const Notification: React.FC<{ notification: NotificationPropsWithId }> = ({ not
       <div className="notification-details">
         <small>種別: {notification.notification_div} </small>
         <small>掲載期間: {formatDate(notification.start_at)} 〜 {formatDate(notification.end_at)}</small>
-        {notification.important && <small className="important-notice" >重要</small>}
+        {notification.important ? <small className="important-notice" >重要</small> : null}
       </div>
       <p className="notification-content">{notification.content}</p>
       <button onClick={ () => deleteNotification() } className="delete-button">Delete</button>
