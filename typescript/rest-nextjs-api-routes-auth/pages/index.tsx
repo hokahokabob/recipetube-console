@@ -7,7 +7,10 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   const notifications = await fetch(process.env.API_URL, {
     method: "GET",
-    headers: { "X-API-Key": process.env.API_KEY },
+    headers: {
+      "X-API-Key": process.env.API_KEY,
+      "X-Function-Name": "notification/list"
+    },
   }).then(
     (res) => res.json()
   )

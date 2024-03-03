@@ -5,7 +5,7 @@ import { options } from '../auth/[...nextauth]';
 
 // DELETE /api/notifications/:id
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
-  const notificationId = req.query.id;
+  const notificationId = req.query.id as string;
 
   //memo: next-authのgetSessionだとうまく動かなかった
   // https://next-auth.js.org/configuration/nextjs#in-api-routes
@@ -13,10 +13,17 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
 
   if (req.method === "DELETE") {
     if (session) {
-      const notification = await prisma.notifications.delete({
-        where: { id: Number(notificationId) },
-      });
-      res.json(notification);
+      const result = await fetch(process.env.API_URL, {
+        method: "DELETE",
+        headers: {
+          "X-API-Key": process.env.API_KEY,
+          "X-Function-Name": "notification/delete",
+          "X-Target-Notification-Id": notificationId,
+        },
+      }).then(
+        (res) => res.json()
+      )
+      res.json(result)
     } else {
       res.status(401).send({ message: 'Unauthorized' })
     }

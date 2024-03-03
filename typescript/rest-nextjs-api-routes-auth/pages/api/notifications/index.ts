@@ -15,7 +15,11 @@ export default async function handle(
     if(req.method === "POST") {
       const result = await fetch(process.env.API_URL, {
         method: "POST",
-        headers: { "X-API-Key": process.env.API_KEY },
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-Key": process.env.API_KEY,
+          "X-Function-Name": "notification/add"
+        },
         body: JSON.stringify(req.body),
       }).then(
         (res) => res.json()
