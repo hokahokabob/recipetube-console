@@ -2,59 +2,24 @@ import { PrismaClient, Prisma } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-const userData: Prisma.UserCreateInput[] = [
+const seedNotifications: Prisma.notificationsCreateInput[] = [
   {
-    name: 'Alice',
-    email: 'alice@prisma.io',
-    posts: {
-      create: [
-        {
-          title: 'Join the Prisma Slack',
-          content: 'https://slack.prisma.io',
-          published: true,
-        },
-      ],
-    },
-  },
-  {
-    name: 'Nilu',
-    email: 'nilu@prisma.io',
-    posts: {
-      create: [
-        {
-          title: 'Follow Prisma on Twitter',
-          content: 'https://www.twitter.com/prisma',
-          published: true,
-        },
-      ],
-    },
-  },
-  {
-    name: 'Mahmoud',
-    email: 'mahmoud@prisma.io',
-    posts: {
-      create: [
-        {
-          title: 'Ask a question about Prisma on GitHub',
-          content: 'https://www.github.com/prisma/prisma/discussions',
-          published: true,
-        },
-        {
-          title: 'Prisma on YouTube',
-          content: 'https://pris.ly/youtube',
-        },
-      ],
-    },
-  },
+    title: 'Admin console for Development env released',
+    content: 'オタクの皆様、お待たせしました。開発環境用の管理画面がリリースされました。',
+    notification_div: 'GENERAL',
+    important: true,
+    start_at: new Date('2024-02-15T19:00'),
+    end_at: new Date('2024-03-15T19:00'),
+  }
 ]
 
 async function main() {
   console.log(`Start seeding ...`)
-  for (const u of userData) {
-    const user = await prisma.user.create({
-      data: u,
+  for (const n of seedNotifications) {
+    const notification = await prisma.notifications.create({
+      data: n,
     })
-    console.log(`Created user with id: ${user.id}`)
+    console.log(`Created notification with id: ${notification.id}`)
   }
   console.log(`Seeding finished.`)
 }
