@@ -20,3 +20,6 @@
 ### Backend: API Gateway & Lambda
 - `/lambda`
   - For reference about how to upload code to Lambda, see [this tutorial](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-lambda-tutorial.html)
+
+### URL
+dev: https://main.d15ozdq2jl125i.amplifyapp.com/
