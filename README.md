@@ -18,6 +18,7 @@
     - `/amplify/d15ozdq2jl125i/main/NEXTAUTH_SECRET`: Digest parameter for next-auth. For detail, see the official doc.
 
 ### Backend: API Gateway & Lambda
+- 2024.3.10 Lambda is being replaced to FastAPI on ECS...(WIP)
 - `/lambda`
   - For reference about how to upload code to Lambda, see [this tutorial](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-lambda-tutorial.html)
 

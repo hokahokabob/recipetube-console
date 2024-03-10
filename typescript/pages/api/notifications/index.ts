@@ -18,7 +18,15 @@ export default async function handle(
         headers: {
           "Content-Type": "application/json",
           "X-API-Key": process.env.API_KEY,
-          "X-Function-Name": "notification/add"
+
+          // used for AWS Lambda
+          // "X-Function-Name": "notification/add",
+
+          //TODO: extract google user info from next authentication
+          "X-Id-Token": "kusonamoon",
+          "X-Dev-Google-Usr": "11111111111",
+
+          "X-Password": req.body.password,
         },
         body: JSON.stringify(req.body),
       }).then(

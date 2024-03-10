@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Router, { useRouter } from "next/router";
 
 export type NotificationProps = {
@@ -10,19 +10,29 @@ export type NotificationProps = {
   end_at: string,
 }
 
+export type NotificationPropsWithPassword = NotificationProps & {
+  password: string,
+}
+
 export type NotificationPropsWithId = NotificationProps & {
   id: number,
 }
 
 const Notification: React.FC<{ notification: NotificationPropsWithId }> = ({ notification }) => {
-  const router = useRouter();
+  const [password, setPassword] = useState<string>("")
 
-  const deleteNotification = async () => {
+  const deleteNotification = async (pw) => {
+    console.log("deleteNotification" + pw)
     await fetch(`/api/notifications/${notification.id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ "password": password }),
     });
     await Router.push("/")
+  }
+
+  const handlePwChange = (e) => {
+    setPassword(e.target.value)
   }
 
   return (
@@ -34,7 +44,13 @@ const Notification: React.FC<{ notification: NotificationPropsWithId }> = ({ not
         {notification.important ? <small className="important-notice" >重要</small> : null}
       </div>
       <p className="notification-content">{notification.content}</p>
-      <button onClick={ () => deleteNotification() } className="delete-button">Delete</button>
+      <form onSubmit={(password) => deleteNotification(password)}>
+        <div className="form-group">
+          <label htmlFor="title">password:</label>
+          <input type="password" name="password" maxLength={50} onChange={handlePwChange} className="password-input"/>
+          <button type="submit" className="delete-button">Delete with password</button>
+        </div>
+      </form>
       <style jsx>{`
         .notification-card {
           color: inherit;
@@ -63,6 +79,13 @@ const Notification: React.FC<{ notification: NotificationPropsWithId }> = ({ not
         .notification-content {
           white-space: pre-line;
           margin-bottom: 1rem;
+        }
+        .password-input {
+          padding: 0.5rem;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin: 0.5rem 0;
+          width: 100%;
         }
         .delete-button {
           background: #ff4d4f;

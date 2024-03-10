@@ -3,7 +3,7 @@ import { GetServerSideProps } from "next";
 import Layout from "../../components/Layout";
 import Router from "next/router";
 import { useSession } from "next-auth/react";
-import { NotificationProps } from "../../components/Notification";
+import { NotificationPropsWithPassword } from "../../components/Notification";
 
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
@@ -12,25 +12,33 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   };
 };
 
-async function publishNotification(notification: NotificationProps): Promise<void> {
+async function publishNotification(notification: NotificationPropsWithPassword): Promise<void> {
   await fetch(`/api/notifications`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body:  JSON.stringify(notification),
+    headers: {
+      "Content-Type": "application/json",
+      //added
+      "X-Id-Token": "kusonamoon",
+      "X-Dev-Google-Usr": "11111111111",
+
+      "X-Password": notification.password,
+    },
+    body: JSON.stringify(notification),
   });
   await Router.push("/")
 }
 
-const NewNotification: React.FC<NotificationProps> = (props) => {
+const NewNotification: React.FC<NotificationPropsWithPassword> = (props) => {
   const { data: session, status } = useSession();
 
-  const [formState, setFormState] = useState<NotificationProps>({
+  const [formState, setFormState] = useState<NotificationPropsWithPassword>({
     title: '',
     content: '',
-    notification_div: 'GENERAL',
+    notification_div: '一般',
     important: false,
     start_at: '',
     end_at: '',
+    password: '',
   });
   if (status === 'loading') {
     return <div>loading ...</div>;
@@ -77,9 +85,9 @@ const NewNotification: React.FC<NotificationProps> = (props) => {
       <div className="form-group">
         <label htmlFor="notification_div">Notification Division:</label>
         <select id="notification_div" name="notification_div" onChange={handleChange}>
-          <option value="GENERAL">GENERAL</option>
-          <option value="MAINTENANCE">MAINTENANCE</option>
-          <option value="TROUBLE_REPORT">TROUBLE_REPORT</option>
+          <option value="一般">一般</option>
+          <option value="メンテナンス">メンテナンス</option>
+          <option value="障害報告">障害報告</option>
         </select>
       </div>
       <div className="form-group">
@@ -93,6 +101,10 @@ const NewNotification: React.FC<NotificationProps> = (props) => {
       <div className="form-group">
         <label htmlFor="end_at">End At:</label>
         <input type="datetime-local" id="end_at" name="end_at" step="60" onChange={handleChange}/>
+      </div>
+      <div className="form-group">
+        <label htmlFor="password">password:</label>
+        <input type="password" id="password" name="password" maxLength={50} onChange={handleChange}/>
       </div>
       <div className="form-group">
         <input type="submit" value="Submit" className="submit-button"/>

@@ -12,12 +12,20 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
 
   if (req.method === "DELETE") {
     if (session) {
-      const result = await fetch(process.env.API_URL, {
+      const result = await fetch(process.env.API_URL + `/${notificationId}`, {
         method: "DELETE",
         headers: {
           "X-API-Key": process.env.API_KEY,
-          "X-Function-Name": "notification/delete",
-          "X-Target-Notification-Id": notificationId,
+
+          // used for AWS Lambda
+          // "X-Function-Name": "notification/delete",
+          // "X-Target-Notification-Id": notificationId,
+
+          //TODO: extract google user info from next authentication
+          "X-Id-Token": "kusonamoon",
+          "X-Dev-Google-Usr": "11111111111",
+
+          "X-Password": req.body.password,
         },
       }).then(
         (res) => res.json()

@@ -9,7 +9,13 @@ export const getServerSideProps: GetServerSideProps = async () => {
     method: "GET",
     headers: {
       "X-API-Key": process.env.API_KEY,
-      "X-Function-Name": "notification/list"
+
+      // used for AWS Lambda
+      // "X-Function-Name": "notification/list",
+
+      //TODO: extract google user info from next authentication
+      "X-Id-Token": "kusonamoon",
+      "X-Dev-Google-Usr": "11111111111",
     },
   }).then(
     (res) => res.json()
