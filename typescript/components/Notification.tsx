@@ -20,15 +20,18 @@ export type NotificationPropsWithId = NotificationProps & {
 
 const Notification: React.FC<{ notification: NotificationPropsWithId }> = ({ notification }) => {
   const [password, setPassword] = useState<string>("")
+  const router = useRouter()
 
-  const deleteNotification = async (pw) => {
-    console.log("deleteNotification" + pw)
+  const deleteNotification = async (e) => {
+    e.preventDefault()
     await fetch(`/api/notifications/${notification.id}`, {
       method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ "password": password }),
-    });
-    await Router.push("/")
+      headers: {
+        "Content-Type": "application/json",
+        "X-Password": password
+      },
+    })
+    await router.push("/")
   }
 
   const handlePwChange = (e) => {
@@ -44,7 +47,7 @@ const Notification: React.FC<{ notification: NotificationPropsWithId }> = ({ not
         {notification.important ? <small className="important-notice" >重要</small> : null}
       </div>
       <p className="notification-content">{notification.content}</p>
-      <form onSubmit={(password) => deleteNotification(password)}>
+      <form onSubmit={deleteNotification}>
         <div className="form-group">
           <label htmlFor="title">password:</label>
           <input type="password" name="password" maxLength={50} onChange={handlePwChange} className="password-input"/>

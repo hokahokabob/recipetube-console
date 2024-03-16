@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getServerSession } from 'next-auth/next';
 import { options } from '../auth/[...nextauth]';
+import { getToken } from 'next-auth/jwt';
 
 // DELETE /api/notifications/:id
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
@@ -12,20 +13,19 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
 
   if (req.method === "DELETE") {
     if (session) {
+      const idToken = await getToken({ req });
       const result = await fetch(process.env.API_URL + `/${notificationId}`, {
         method: "DELETE",
-        headers: {
+        headers:
+        {
+          ...req.headers as NodeJS.Dict<string | string[]>,
           "X-API-Key": process.env.API_KEY,
 
           // used for AWS Lambda
           // "X-Function-Name": "notification/delete",
           // "X-Target-Notification-Id": notificationId,
 
-          //TODO: extract google user info from next authentication
-          "X-Id-Token": "kusonamoon",
-          "X-Dev-Google-Usr": "11111111111",
-
-          "X-Password": req.body.password,
+          "X-Admin-Google-Usr": idToken?.email,
         },
       }).then(
         (res) => res.json()
