@@ -4,12 +4,15 @@ applications:
       phases:
         preBuild:
           commands:
+            - echo 'NOTE: run this build on image Amazon Linux 2023 or newer ones'
+            - nvm use 20
+            - node -v
             - npm install
         build:
           commands:
             - echo "NEXTAUTH_URL=$NEXTAUTH_URL" >> .env
             - echo "API_URL=$API_URL" >> .env
-            - yum install jq -y
+            - sudo yum install jq -y
             - echo $secrets | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' >> .env
             - npm run build
       artifacts:
