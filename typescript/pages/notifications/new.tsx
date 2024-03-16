@@ -17,10 +17,6 @@ async function publishNotification(notification: NotificationPropsWithPassword):
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      //added
-      "X-Id-Token": "kusonamoon",
-      "X-Dev-Google-Usr": "11111111111",
-
       "X-Password": notification.password,
     },
     body: JSON.stringify(notification),
