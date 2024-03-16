@@ -16,7 +16,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
   }).then(
     (res) => res.json()
   )
-  console.log(notifications)
   return {
     props: { notifications },
   };

@@ -61,7 +61,6 @@ const NewNotification: React.FC<NotificationPropsWithPassword> = (props) => {
       ...formState,
       [e.target.name]: e.target.checked,
     });
-    console.log(e.target.checked)
   }
 
   const handleSubmit = (e) => {
