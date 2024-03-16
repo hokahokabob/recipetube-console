@@ -1,9 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getServerSession } from 'next-auth/next';
 import { options } from '../auth/[...nextauth]';
+import { getToken } from 'next-auth/jwt';
 
-// memo: 色々あってAPI Gatewayを使うことになったため、pages/api以下を挟む必要はないが
-// 学習の証跡の兼ねてここに一部の実装を残している
 // GET /api/notifications
 // POST /api/notifications
 export default async function handle(
@@ -12,6 +11,7 @@ export default async function handle(
 ) {
   const session = await getServerSession(req, res, options);
   if (session) {
+    const idToken = await getToken({ req });
     if(req.method === "POST") {
       const result = await fetch(process.env.API_URL, {
         method: "POST",
@@ -21,11 +21,8 @@ export default async function handle(
 
           // used for AWS Lambda
           // "X-Function-Name": "notification/add",
-
-          //TODO: extract google user info from next authentication
-          "X-Id-Token": "kusonamoon",
-          "X-Dev-Google-Usr": "11111111111",
-
+          
+          "X-Admin-Google-Usr": idToken?.email,
           "X-Password": req.body.password,
         },
         body: JSON.stringify(req.body),
