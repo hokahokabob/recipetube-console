@@ -12,10 +12,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
       // used for AWS Lambda
       // "X-Function-Name": "notification/list",
-
-      //TODO: extract google user info from next authentication
-      "X-Id-Token": "kusonamoon",
-      "X-Dev-Google-Usr": "11111111111",
     },
   }).then(
     (res) => res.json()
@@ -36,11 +32,11 @@ const Home: React.FC<Props> = (props) => {
       <div className="page">
         <h1>RecipeTube notifications console</h1>
         <main>
-          {props.notifications.map((notification) => (
+          {props.notifications && props.notifications.length > 0 ? props.notifications.map((notification) => (
             <div key={notification.id} className="post">
               <Notification notification={notification} />
             </div>
-          ))}
+          )) : null}
         </main>
       </div>
       <style jsx>{`
