@@ -1,3 +1,7 @@
+<p align="center" width="100%">
+  <img src="https://github.com/hokahokabob/recipetube-console/assets/56472172/ee6a3e9b-5c4e-471b-ac0c-f937e7bd62ff" width="30%"/>
+</p>
+
 ## RecipeTube Console
 - Administrator application for RecipeTube.
 - Served as...
