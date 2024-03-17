@@ -23,10 +23,11 @@ type Props = {
 };
 
 const Home: React.FC<Props> = (props) => {
+  const env = process.env.NODE_ENV;
   return (
     <Layout>
       <div className="page">
-        <h1>RecipeTube notifications console</h1>
+        <h1 className={env == "production" ? "prod" : ""}>RecipeTube notifications console [{env}]</h1>
         <main>
           {props.notifications && props.notifications.length > 0 ? props.notifications.map((notification) => (
             <div key={notification.id} className="post">
@@ -47,6 +48,10 @@ const Home: React.FC<Props> = (props) => {
 
         .post + .post {
           margin-top: 2rem;
+        }
+
+        .prod {
+          color: #ff4d4f;
         }
       `}</style>
     </Layout>
