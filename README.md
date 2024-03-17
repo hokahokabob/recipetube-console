@@ -12,7 +12,6 @@
     - `API_URL`: URL of web api to fetch/write data
   - Parameter Store in AWS Systems Manager
     - `/amplify/d15ozdq2jl125i/main/API_KEY`: `X-API-Key` header value for API Gateway
-    - `/amplify/d15ozdq2jl125i/main/DATABASE_URL`: Database URL. Only used to data migration with prisma
     - `/amplify/d15ozdq2jl125i/main/GOOGLE_CLIENT_ID`: For Google authentication
     - `/amplify/d15ozdq2jl125i/main/GOOGLE_CLIENT_SECRET`: For Google authentication
     - `/amplify/d15ozdq2jl125i/main/NEXTAUTH_SECRET`: Digest parameter for next-auth. For detail, see the official doc.
