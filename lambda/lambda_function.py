@@ -25,6 +25,7 @@ except pymysql.MySQLError as e:
 
 logger.info("SUCCESS: Connection to RDS for MySQL instance succeeded")
 
+
 def lambda_handler(event, context):
     """
     This function controls CRUD for notifications based on request header
@@ -35,8 +36,12 @@ def lambda_handler(event, context):
 
     if function_name == 'notification/list':
         with conn.cursor(DictCursor) as cur:
-            select_sql = 'select id,title,content,notification_div,important, DATE_FORMAT(start_at, "%Y-%m-%d %H:%i") as start_at, DATE_FORMAT(end_at, "%Y-%m-%d %H:%i") as end_at\
-              from notifications'
+            select_sql = 'select ' \
+                         '  id,title,content,notification_div,important, ' \
+                         '  DATE_FORMAT(start_at, "%Y-%m-%d %H:%i") as start_at, ' \
+                         '  DATE_FORMAT(end_at, "%Y-%m-%d %H:%i") as end_at ' \
+                         'from ' \
+                         '  notifications'
             cur.execute(select_sql)
             result = cur.fetchall()
             logger.info("fetched notifications")
@@ -66,16 +71,15 @@ def lambda_handler(event, context):
                 logger.info(row)
         conn.commit()
 
-        return "Added %d items to RDS for MySQL table" %(item_count)
+        return "Added %d items to RDS for MySQL table" % item_count
 
     if function_name == 'notification/delete':
-        id = event['headers']['X-Target-Notification-Id']
-        sql_string = f"delete from notifications where id = '{id}'"
+        notification_id = event['headers']['X-Target-Notification-Id']
+        sql_string = f"delete from notifications where id = '{notification_id}'"
         with conn.cursor() as cur:
             cur.execute(sql_string)
             conn.commit()
-        logger.info(f"deleted notification with id {id}")
+        logger.info(f"deleted notification with id {notification_id}")
         return {
             "result": "successfully deleted"
         }
-
