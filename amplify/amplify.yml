@@ -4,7 +4,7 @@ applications:
       phases:
         preBuild:
           commands:
-            - echo 'NOTE: run this build on image Amazon Linux 2023 or newer ones'
+            - echo "NOTE run this build on image Amazon Linux 2023 or newer ones"
             - nvm use 20
             - node -v
             - npm install
