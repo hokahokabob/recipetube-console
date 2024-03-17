@@ -20,11 +20,6 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
         {
           ...req.headers as NodeJS.Dict<string | string[]>,
           "X-API-Key": process.env.API_KEY,
-
-          // used for AWS Lambda
-          // "X-Function-Name": "notification/delete",
-          // "X-Target-Notification-Id": notificationId,
-
           "X-Admin-Google-Usr": idToken?.email,
         },
       }).then(

@@ -18,10 +18,6 @@ export default async function handle(
         headers: {
           "Content-Type": "application/json",
           "X-API-Key": process.env.API_KEY,
-
-          // used for AWS Lambda
-          // "X-Function-Name": "notification/add",
-
           "X-Admin-Google-Usr": idToken?.email,
           "X-Password": req.body.password,
         },

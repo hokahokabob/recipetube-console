@@ -9,9 +9,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
     method: "GET",
     headers: {
       "X-API-Key": process.env.API_KEY,
-
-      // used for AWS Lambda
-      // "X-Function-Name": "notification/list",
     },
   }).then(
     (res) => res.json()

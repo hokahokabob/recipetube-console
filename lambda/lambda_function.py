@@ -4,6 +4,7 @@ import pymysql
 import json
 import os
 from pymysql.cursors import DictCursor
+import warnings
 
 # rds settings
 user_name = os.environ['USER_NAME']
@@ -28,8 +29,9 @@ logger.info("SUCCESS: Connection to RDS for MySQL instance succeeded")
 
 def lambda_handler(event, context):
     """
-    This function controls CRUD for notifications based on request header
+    deprecated: This function controls CRUD for notifications based on request header
     """
+    warnings.warn("lambda_handler is deprecated @2024.3. Use FastAPI on ECS instead.", DeprecationWarning)
     # API Gatewayのエンドポイントを分けるのが面倒だったので、サボりとしてrequest header経由で処理内容を分岐している。
     function_name = event['headers']['X-Function-Name']
     logger.info('Function-Name: ' + function_name)
