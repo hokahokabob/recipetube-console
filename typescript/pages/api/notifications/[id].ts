@@ -14,7 +14,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
   if (req.method === "DELETE") {
     if (session) {
       const idToken = await getToken({ req });
-      const result = await fetch(process.env.API_URL + `/${notificationId}`, {
+      const result = await fetch(process.env.NEXT_PUBLIC_API_URL + `/${notificationId}`, {
         method: "DELETE",
         headers:
         {

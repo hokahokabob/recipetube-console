@@ -16,7 +16,7 @@
 - `/amplify`
   - environment variables
     - `NEXTAUTH_URL`: Base URL for next-auth. Same value as Amplify domain is fine.
-    - `API_URL`: URL of web api to fetch/write data
+    - `NEXT_PUBLIC_API_URL`: URL of web api to fetch/write data
   - Parameter Store in AWS Systems Manager
     - `/amplify/d15ozdq2jl125i/main/API_KEY`: `X-API-Key` header value for Web API
     - `/amplify/d15ozdq2jl125i/main/GOOGLE_CLIENT_ID`: For Google authentication

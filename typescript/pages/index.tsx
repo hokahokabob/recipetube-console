@@ -5,7 +5,7 @@ import Notification, { NotificationPropsWithId } from "../components/Notificatio
 
 export const getServerSideProps: GetServerSideProps = async () => {
 
-  const notifications = await fetch(process.env.API_URL, {
+  const notifications = await fetch(process.env.NEXT_PUBLIC_API_URL, {
     method: "GET",
     headers: {
       "X-API-Key": process.env.API_KEY,
@@ -23,11 +23,12 @@ type Props = {
 };
 
 const Home: React.FC<Props> = (props) => {
-  const env = process.env.NODE_ENV;
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const isDev = apiUrl?.includes("localhost") || apiUrl?.includes("dev-fastapi");
   return (
     <Layout>
       <div className="page">
-        <h1 className={env == "production" ? "prod" : ""}>RecipeTube notifications console [{env}]</h1>
+        <h1 className={isDev ? "" : "prod"}>RecipeTube notifications console [{isDev ? "Dev" : "Production!!"}]</h1>
         <main>
           {props.notifications && props.notifications.length > 0 ? props.notifications.map((notification) => (
             <div key={notification.id} className="post">

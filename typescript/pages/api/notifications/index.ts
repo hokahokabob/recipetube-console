@@ -13,7 +13,7 @@ export default async function handle(
   if (session) {
     const idToken = await getToken({ req });
     if(req.method === "POST") {
-      const result = await fetch(process.env.API_URL, {
+      const result = await fetch(process.env.NEXT_PUBLIC_API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -11,7 +11,7 @@ applications:
         build:
           commands:
             - echo "NEXTAUTH_URL=$NEXTAUTH_URL" >> .env
-            - echo "API_URL=$API_URL" >> .env
+            - echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL" >> .env
             - sudo yum install jq -y
             - echo $secrets | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' >> .env
             - npm run build
